@@ -5,12 +5,17 @@
   "scripts": {
     "build": "tsc",
     "build:w": "tsc -w",
-    "serve": "lite-server"
+    "copy:templates": "find ./src -name '*.html' -type f -exec cp {} ./dist \\;",
+    "serve": "lite-server",
+    "bundle": "npm run copy:templates && npm run build",
+    "bundle:w": "nodemon -e ts,html --ignore dist --exec 'npm run bundle'"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "0.0.2",
     "lite-server": "^2.2.2",
+    "nodemon": "^1.11.0",
     "typescript": "^2.1.4"
   },
   "dependencies": {
