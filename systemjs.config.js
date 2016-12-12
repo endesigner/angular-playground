@@ -21,15 +21,6 @@
       "rxjs": "npm:rxjs"
     },
 
-    meta: {
-      "*" : {
-        deps: [
-          "zone.js",
-          "reflect-metadata"
-        ]
-      }
-    },
-
     packages: {
       app: {
         main: "../dist/app",
@@ -38,9 +29,19 @@
       rxjs: {
         defaultExtension: "js"
       }
+    },
+
+    meta: {
+      "*" : {
+        deps: [
+          "zone.js",
+          "reflect-metadata"
+        ]
+      }
     }
   })
 
   System.import("app")
-    .catch(err => console.log(err))
+    .then(null, console.error.bind(console))
+
 })(this)
