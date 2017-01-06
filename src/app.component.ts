@@ -21,12 +21,6 @@ export class AppComponent {
   threshold: number // Minimal number of characters before filtering can begin
   throttle: { min: number, max: number} // Max/Min levinstein distance for acceptable suggestion
 
-  get showSuggestion() {
-    let suggestion = this.suggestion(this.formGroup.controls['email'].value)
-    if (suggestion && suggestion.distance > 0) return true
-    return false
-  }
-
   constructor(
     formBuilder: FormBuilder,
     private emailSuggestlistService: EmailSuggestlistService
@@ -39,6 +33,17 @@ export class AppComponent {
       "email": [null, Validators.required],
       "password": [null, Validators.required]
     })
+  }
+
+  get showSuggestion() {
+    let formValue = this.formGroup.controls['email'].value
+    let suggestion = this.suggestion(formValue)
+    if (!suggestion) return
+
+    if (suggestion.distance > 0) return true
+    if (formValue.indexOf("@") === -1) return true
+
+    return false
   }
 
   suggestion(c: string): { value: string, distance: number } {
