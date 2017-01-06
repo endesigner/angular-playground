@@ -1,0 +1,22 @@
+<div class="container" [ngClass]="{'has-error':!formGroup.valid}">
+  <form #f="ngForm" [formGroup]="formGroup">
+    <div class="form-group" [ngClass]="{'has-error':!formGroup.controls['email'].valid}">
+      <label for="email">Email</label>
+      <input type="email"
+             id="email"
+             name="email"
+             ngModel
+             validateEmail
+             [formControl]="formGroup.controls['email']" />
+      <a *ngIf="showSuggestion" (click)="acceptSuggestion($event)" href="#">{{suggestionMessage}}</a>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error':!formGroup.controls['password'].valid}">
+      <label for="password">Password</label>
+      <input type="password"
+             id="password"
+             name="password"
+             [formControl]="formGroup.controls['password']" />
+    </div>
+    <button [disabled]="!f.form.valid" type="submit">Submit</button>
+  </form>
+</div>

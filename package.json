@@ -3,18 +3,25 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "build": "tsc",
-    "build:w": "tsc -w",
-    "copy:templates": "find ./src -name '*.html' -type f -exec cp {} ./dist \\;",
-    "serve": "lite-server",
-    "bundle": "npm run copy:templates && npm run build",
-    "bundle:w": "nodemon -e ts,html --ignore dist --exec 'npm run bundle'"
+    "clean": "rm -rf dist && mkdir dist",
+    "build": "npm run clean && npm run build:ts && npm run build:sass",
+    "build:ts": "tsc",
+    "build:sass": "node-sass -o dist/ src/",
+    "watch": "npm run clean && concurrent \"npm run copy:html\" \"npm run copy:json\" \"npm run watch:ts\" \"npm run watch:sass\"",
+    "watch:ts": "tsc --watch",
+    "watch:sass": "npm run build:sass && node-sass -o dist/ -w src/",
+    "dev": "concurrent \"npm run watch\" \"lite-server\"",
+
+    "copy:html": "find ./src -name '*.html' -exec cp {} ./dist \\;",
+    "copy:json": "find ./src -name '*.json' -exec cp {} ./dist \\;"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@types/node": "0.0.2",
+    "concurrently": "^3.1.0",
     "lite-server": "^2.2.2",
+    "node-sass": "^4.0.0",
     "nodemon": "^1.11.0",
     "typescript": "^2.1.4"
   },
