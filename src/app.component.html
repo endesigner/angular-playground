@@ -6,7 +6,6 @@
              id="email"
              name="email"
              ngModel
-             validateEmail
              [formControl]="formGroup.controls['email']" />
       <a *ngIf="showSuggestion" (click)="acceptSuggestion($event)" href="#">{{suggestionMessage}}</a>
     </div>

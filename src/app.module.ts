@@ -4,7 +4,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { HttpModule } from '@angular/http'
 
 import { AppComponent } from "./app.component"
-import { EmailValidator } from "./email.validator"
 import { EmailSuggestlistService } from "./email-suggest-list.service"
 
 import { APP_CONFIG, EMAIL_SUGGESTIONS_DI_CONFIG } from "./app-config"
@@ -21,8 +20,7 @@ const ConfigFactory = (service: EmailSuggestlistService): Function => {
     HttpModule
   ],
   declarations: [
-    AppComponent,
-    EmailValidator
+    AppComponent
   ],
   providers: [
     EmailSuggestlistService,
